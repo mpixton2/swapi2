@@ -10,18 +10,11 @@ import Character from "./Character"
 const CharacterList = (props) => {
     return (
         <>
-            <div className="charactersList" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-                {
-                      
-                    // <Route path={`/character/${character._id}`} element=
-                    // {
-                        props.data?.map((character) => (
-                            <Character key={character._id} data={character} />
-                        )) 
-                        // } 
-                        // />
-                }
-            </div>
+            {
+                props.data.map((char) => (
+                    <Character key={char._id} data={char} />
+                ))
+            }
         </>
     );
 };

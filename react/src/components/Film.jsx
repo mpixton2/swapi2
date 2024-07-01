@@ -1,4 +1,4 @@
-const Character = (props) => {
+const Film = (props) => {
     return (
         <>
             <div className="card" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>
@@ -11,4 +11,4 @@ const Character = (props) => {
     );
 };
 
-export default Character;
+export default Film;

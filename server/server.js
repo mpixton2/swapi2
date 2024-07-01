@@ -1,5 +1,6 @@
 import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
+import cors from 'cors'
 import dotenv from 'dotenv';
 import cors from 'cors';
 
