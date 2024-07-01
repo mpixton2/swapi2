@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import CharacterList from "./components/CharacterList";
 
@@ -14,20 +12,34 @@ import {
 function App() {
   const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_SWAPI_API_URL}/characters`);
+        if (!response.ok) {
+          throw new Error('Data could not be fetched!');
+        }
+        const json_response = await response.json();
+        setData(json_response);
+      } catch (error) {
+        console.error('Error fetching characters:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
-    <Router>
      <body>
   <div>
     <h1>Star Wars Universe Lookup</h1>
-    <label for="searchString">Who you looking for? <span class="small">(Regular expressions are cool
-        here)</span></label>
-    <input id="searchString" oninput="filterCharacters()" autocomplete="off" />
-  </div>
+    <label htmlFor="searchString">Who you looking for?</label>
+    </div>
   <section id="charactersList">
+    <CharacterList />
   </section>
 </body>
-</Router>
     </>
   )
 }
