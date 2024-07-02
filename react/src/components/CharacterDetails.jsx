@@ -72,45 +72,48 @@ relFilms.map((film) =>{
     console.log(film)
 })
 
-    console.log(data.relFilms)
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid" style={{paddingTop: "50px"}}>
                 <div className="align-center">
-                    <h3>{data.character.name}</h3>
+                    <h3>{character.name}</h3>
                     <div className="card">
-                        Homeworld: {data.homeworld.name}
+                        Homeworld: {homeworld.name}
                     </div>
                     <div className="card">
-                        <p>Height: {data.character.height} cms </p>
+                        <p>Height: {character.height} cms </p>
                     </div>
                     <div className="card">
-                        <p>Mass: {data.character.mass} kg </p>
+                        <p>Mass: {character.mass} kg </p>
                     </div >
                     <div className="card">
-                        <p>Gender: {data.character.gender}  </p>
+                        <p>Gender: {character.gender}  </p>
                     </div>
                     <div className="card">
-                        <p>Eye Color: {data.character.eye_color}  </p>
+                        <p>Eye Color: {character.eye_color}  </p>
                     </div>
                     <div className="card">
-                        <p>Hair Color: {data.character.hair_color}  </p>
+                        <p>Hair Color: {character.hair_color}  </p>
                     </div>
                     <div className="card">
-                        <p>Skin Color: {data.character.skin_color}  </p>
+                        <p>Skin Color: {character.skin_color}  </p>
                     </div>
                     <h5>Films</h5>
                     <div className="list-group">
-                    <ul>
-
-                        {/* {data?.relFilms.map(Film => {<Film><a href={`/films/${Film.id}`}/>${data.relFilms.title}</Film>})} */}
-                    </ul>
-                    </div>
+                    <div>
+             <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+         {
+         relFilms.map((film) => (
+             <Film key={film._id} data={film} />
+            ))         }
+ </div>
                 </div>
+            </div>
+            </div>
             </div>
         </>
 
-        // <div style={{display: "flex"}}>
+        /* // <div style={{display: "flex"}}>
 //         <h1>Character Name: {character.name}</h1>
 //         <div style={{justifyContent: "center" }}>
 //             Homeworld is: <Planet data={homeworld} />
@@ -118,7 +121,7 @@ relFilms.map((film) =>{
 //         <div>
 //             Related Films: 
 //             <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-//         {
+//         { */
 //         relFilms.map((film) => (
 //             <Film key={film._id} data={film} />
 //             ))

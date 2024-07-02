@@ -94,7 +94,7 @@ app.get('/api/films/:id', async (req, res) => {
     const { id } = req.params
     console.log(id)
     const collection = db.collection('films');
-    const film = await collection.find({"id": Number(id)}).toArray();
+    const film = await collection.findOne({"id": Number(id)});
 
     res.json(film)
     }

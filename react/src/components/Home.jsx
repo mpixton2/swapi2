@@ -1,7 +1,7 @@
 const Home = (props) => {
 
     return(
-        <div>Test</div>
+        <div>Starwars</div>
     )
 
 }
