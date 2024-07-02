@@ -3,6 +3,7 @@ import './App.css'
 import CharacterList from "./components/CharacterList";
 import FilmList from "./components/FilmList";
 import Home from "./components/Home";
+import PlanetList from "./components/PlanetList";
 
 import {
   BrowserRouter as Router,
@@ -10,35 +11,38 @@ import {
   Routes,
   Link
 } from "react-router-dom";
+import CharacterDetails from "./components/CharacterDetails";
 
 function App() {
   const [data, setData] = useState([]);
-  const [view, setView] = useState('Characters')
+  //const [view, setView] = useState('null')
 
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/${view}`);
-            if (!response.ok) {
-                throw new Error('Data could not be fetched!');
-            }
-            const json_response = await response.json();
-            console.log(json_response)
-            setData(json_response); // assign JSON response to the data variable.
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+//   useEffect(() => {
+//     const fetchData = async () => {
+//         try {
+//             const response = await fetch(`http://localhost:3000/api/${view}`);
+            
+//             if (!response.ok) {
+//                 throw new Error('Data could not be fetched!');
+//             }
 
-    fetchData();
-}, [view]);
+//             const json_response = await response.json();
+//             console.log(json_response)
+//             setData(json_response); // assign JSON response to the data variable.
+//         } catch (error) {
+//             console.error('Error fetching data:', error);
+//         }
+//     };
+
+//     fetchData();
+// }, [view]);
 
 
 
   return (
     <>
     <Router>
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top" style={{border: '0.5px'}}>
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             SWAPI
@@ -67,22 +71,15 @@ function App() {
           </div>
         </div>
       </nav>
-  {/* <div>
-    <h1>Star Wars Universe Lookup</h1>
-    <label for="searchString">Who you looking for? <span class="small">(Regular expressions are cool
-        here)</span></label>
-    <input id="searchString" oninput="filterCharacters()" autocomplete="off" />
-  </div> */}
   <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
       <Routes>
       <Route exact path="/" element={<Home />}/>
       <Route path="/Characters" element={<CharacterList data={data}/>} />
-      <Route path="/Films" element={<FilmList data={data}/>} />  
+      <Route path="/Characters/:id" element={<CharacterDetails />} />
+      <Route path="/Films" element={<FilmList data={data}/>} />
+      <Route path="/Planets" element={<PlanetList data={data}/>} />  
       </Routes>
    </div>
-  <section id="charactersList">
-    <CharacterList />
-  </section>
 </Router>
     </>
   )
