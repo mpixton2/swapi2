@@ -1,4 +1,6 @@
 const FilmDetails = (props) => {
+    
+
 
 return (
     <>
@@ -34,11 +36,6 @@ return (
         </div>
     </>
 );
-const FilmDetails = (props) => {
-    return (
-        <>
-        </>
-    );
-};
+}
 
 export default FilmDetails;
