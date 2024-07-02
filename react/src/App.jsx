@@ -76,6 +76,7 @@ function App() {
           </div>
         </div>
       </nav>
+  <main style={{paddingTop: '65px'}}>
   <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
       <Routes>
       <Route exact path="/" element={<Home />}/>
@@ -87,6 +88,7 @@ function App() {
       <Route path="/Planets/:id" element={<PlanetDetails />} />  
       </Routes>
    </div>
+   </main>
 </Router>
     </>
   )

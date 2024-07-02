@@ -27,11 +27,13 @@ const FilmsPage = (props) => {
 
     return (
         <>
+        <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 data.map((film) => (
                     <Film key={film._id} data={film} />
                 ))
             }
+            </div>
         </>
     );
 }; 
