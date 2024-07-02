@@ -1,8 +1,7 @@
 import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
-import cors from 'cors'
-import dotenv from 'dotenv';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
 app.use(cors())
@@ -63,7 +62,7 @@ app.get('/api/planets/:id', async (req, res) => {
     const { id } = req.params
     console.log(id)
     const collection = db.collection('planets');
-    const planet = await collection.find({"id": Number(id)}).toArray();
+    const planet = await collection.findOne({"id": Number(id)});
 
     res.json(planet)
     }
@@ -79,7 +78,7 @@ app.get('/api/characters/:id', async (req, res) => {
     const { id } = req.params
     console.log(id)
     const collection = db.collection('characters');
-    const character = await collection.find({"id": Number(id)}).toArray();
+    const character = await collection.findOne({"id": Number(id)});
 
     res.json(character)
     }
