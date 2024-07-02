@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import './App.css'
-import CharacterList from "./components/CharacterList";
-import FilmList from "./components/FilmList";
+import CharactersPage from "./components/CharactersPage";
+import FilmsPage from "./components/FilmsPage";
 import Home from "./components/Home";
-import PlanetList from "./components/PlanetList";
+import CharacterDetails from "./components/CharacterDetails";
+import FilmDetails from "./components/FilmDetails";
+import PlanetDetails from "./components/PlanetDetails";
+import PlanetsPage from "./components/PlanetsPage";
 
 import {
   BrowserRouter as Router,
@@ -11,10 +14,12 @@ import {
   Routes,
   Link
 } from "react-router-dom";
-import CharacterDetails from "./components/CharacterDetails";
+
 
 function App() {
-  const [data, setData] = useState([]);
+  // const [films, setFilms] = useState([])
+  // const [characters, setCharacters] = useState([])
+  // const [planets, setPlanets] = useState([])
   //const [view, setView] = useState('null')
 
 //   useEffect(() => {
@@ -74,10 +79,12 @@ function App() {
   <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
       <Routes>
       <Route exact path="/" element={<Home />}/>
-      <Route path="/Characters" element={<CharacterList data={data}/>} />
+      <Route path="/Characters" element={<CharactersPage />} />
       <Route path="/Characters/:id" element={<CharacterDetails />} />
-      <Route path="/Films" element={<FilmList data={data}/>} />
-      <Route path="/Planets" element={<PlanetList data={data}/>} />  
+      <Route path="/Films" element={<FilmsPage />} />
+      <Route path="/Films/:id" element={<FilmDetails />} />
+      <Route path="/Planets" element={<PlanetsPage />} />
+      <Route path="/Planets/:id" element={<PlanetDetails />} />  
       </Routes>
    </div>
 </Router>
