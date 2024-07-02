@@ -1,17 +1,49 @@
 import {useParams} from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Planet from "./Planet";
+import Film from "./Film"
 
 const CharacterDetails = (props) => {
     const { id } = useParams()
     //console.log(id)
-    const [data, setData] = useState({
-        character: {},
-        homeworld: {},
-        relFilms: {}
+    const [character, setCharacter] = useState({})
+    const [homeworld, setHomeworld] = useState({})
+    const [relFilms, setRelFilms] = useState([])
 
-    })
 
+    
     useEffect( () => {
+        const fetchHomeworld = async(planetID) => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/planets/${planetID}`);
+                
+                if (!response.ok) {
+                    throw new Error('Data could not be fetched!');
+                }
+    
+                const planet = await response.json();
+                setHomeworld(planet)
+                console.log('Homeworld', homeworld)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+            const fetchRelFilms = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/characters/${id}/films`);
+                
+                if (!response.ok) {
+                    throw new Error('Data could not be fetched!');
+                }
+    
+                const films = await response.json();
+                setRelFilms(films)
+                console.log('films:', relFilms)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
     const fetchData = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/characters/${id}`);
@@ -20,20 +52,10 @@ const CharacterDetails = (props) => {
                 throw new Error('Data could not be fetched!');
             }
             const char = await response.json();
-            const planetID = char.homeworld
-            const homeworld = fetchHomeworld(planetID)
-            const relFilms = fetchRelFilms()
-
-            const charData = {character: char}
-            const planetData = {homeworld: homeworld}
-            const filmsData = {relFilms: relFilms}
-
-            setData(data => ({
-                ...data,
-                ...charData,
-                ...planetData,
-                ...filmsData}))
-            console.log(data)
+            setCharacter(char)
+            console.log('character', char)
+            fetchHomeworld(char.homeworld)
+            fetchRelFilms()
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -42,53 +64,31 @@ const CharacterDetails = (props) => {
     }
     fetchData()
 }, [])
-    console.log(data)
+console.log(character, homeworld, relFilms)
+relFilms.forEach((item) =>{
+    console.log(item)
+})
+relFilms.map((film) =>{
+    console.log(film)
+})
 
-    const fetchHomeworld = async(planetID) => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/planets/${planetID}`);
-            
-            if (!response.ok) {
-                throw new Error('Data could not be fetched!');
-            }
-
-            const planet = await response.json();
-            // const planetData = {homeworld: planet}
-            // setData(data => ({
-            //     ...data,
-            //     ...planetData}))
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-        const fetchRelFilms = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/characters/${id}/films`);
-            
-            if (!response.ok) {
-                throw new Error('Data could not be fetched!');
-            }
-
-            const relFilms = await response.json();
-            console.log(relFilms)
-            // const filmsData = {relFilms: relFilms}
-            // setData(data => ({
-            //     ...data,
-            //     ...filmsData}))
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
 
     return (
         <>
-            <div>
-                <h1>Character Name: {data.character.name}</h1>
-                <div>
-                    {/* Homeworld is: {data.homeworld.name} */}
+            <div style={{display: "flex"}}>
+                <h1>Character Name: {character.name}</h1>
+                <div style={{justifyContent: "center" }}>
+                    Homeworld is: <Planet data={homeworld} />
                 </div>
                 <div>
-                    
+                    Related Films: 
+                    <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+                {
+                relFilms.map((film) => (
+                    <Film key={film._id} data={film} />
+                    ))
+                }
+        </div>
                 </div>
             </div>
         </>

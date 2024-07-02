@@ -1,12 +1,14 @@
-import Character from "./Character"
+import Film from "./Film"
 import React, { useState, useEffect } from "react";
-const CharacterList = (props) => {
+
+const FilmsPage = (props) => {
+
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/characters`);
+                const response = await fetch(`http://localhost:3000/api/films`);
                 
                 if (!response.ok) {
                     throw new Error('Data could not be fetched!');
@@ -22,20 +24,16 @@ const CharacterList = (props) => {
     
         fetchData();
     }, []);
-    
-
 
     return (
         <>
-        <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
-                data?.map((char) => (
-                    <Character key={char._id} data={char} />
+                data.map((film) => (
+                    <Film key={film._id} data={film} />
                 ))
             }
-        </div>
         </>
     );
-};
+}; 
 
-export default CharacterList;
+export default FilmsPage;
